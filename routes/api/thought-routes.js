@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const {
-
     addThought,
     removeThought,
     addReaction,
@@ -19,14 +18,13 @@ router
     .route('/')
     .get(getAllThoughts)
     .post(addThought)
-    .put(updateThought)
     .delete(removeThought)
     .post(addReaction)
     .delete(removeReaction)
     .get(getThoughtById);
 
 router
-    .route('/:userId/:thoughtId')
+    .route('/:userId/:thoughtId').put(updateThought)
     // 
 
 router

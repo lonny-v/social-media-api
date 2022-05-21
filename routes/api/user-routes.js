@@ -12,7 +12,7 @@ const {
 
 // Set up GET all and POST at /api/users
 router
-    .route('/users')
+    .route('/')
     .get(getAllUsers)
     .post(createUser)
     

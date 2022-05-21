@@ -1,6 +1,58 @@
 const { Thought, User } = require('../models');
 
 const thoughtController = {
+
+    getAllThoughts(req, res) {
+        User.find({})
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+            .select('-__v')
+            .sort({ _id: -1 })
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => {
+                console.log(err);
+                res.status(400).json(err);
+            });
+    },
+
+    updateThought( req, res){
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $push: { thoughts: _id } },
+            { new: true, runValidators: true }
+        )
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No thought found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.json(err));
+    },
+
+    // get one User by id
+    getThoughtById({ params }, res) {
+        Thought.findOne({ _id: params.id })
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+            .select('-__v')
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No thought found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(400).json(err);
+            });
+    },
     // add comment to pizza
     addThought({ params, body }, res) {
         console.log(body);
@@ -14,7 +66,7 @@ const thoughtController = {
             })
             .then(dbUserData => {
                 if (!dbUserData) {
-                    res.status(404).json({ message: 'No User found with this id!' });
+                    res.status(404).json({ message: 'No thought found with this id!' });
                     return;
                 }
                 res.json(dbUserData);

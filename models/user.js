@@ -34,12 +34,6 @@ const UserSchema = new Schema({
             ref: 'User'
         }
     ],
-    comments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment'
-        }
-    ]
 },
     {
         toJSON: {

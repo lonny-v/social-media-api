@@ -18,13 +18,12 @@ router
     .route('/')
     .get(getAllThoughts)
     .post(addThought)
-    .delete(removeThought)
     .post(addReaction)
     .delete(removeReaction)
     .get(getThoughtById);
 
 router
-    .route('/:userId/:thoughtId').put(updateThought)
+    .route('/:userId/:thoughtId').put(updateThought).delete(removeThought)
     // 
 
 router

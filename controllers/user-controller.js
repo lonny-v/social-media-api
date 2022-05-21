@@ -4,10 +4,6 @@ const userController = {
     // get all users
     getAllUsers(req, res) {
         User.find({})
-            // .populate({
-            //     path: 'thoughts',
-            //     select: '-__v'
-            // })
             .select('-__v')
             .sort({ _id: -1 })
             .then(dbUserData => res.json(dbUserData))
@@ -20,10 +16,6 @@ const userController = {
     // get one User by id
     getUserById({ params }, res) {
         User.findOne({ _id: params.id })
-            .populate({
-                path: 'thoughts',
-                select: '-__v'
-            })
             .select('-__v')
             .then(dbUserData => {
                 if (!dbUserData) {
@@ -38,10 +30,10 @@ const userController = {
             });
     },
 
-    addFriend({ params, body }, res) {
+    addFriend({ params}, res) {
         User.findOneAndUpdate(
                     { _id: params.userId },
-                    { $push: { friends: body } },
+                    { $push: { friends: params.friendsId } },
                     { new: true, runValidators: true }
                 )
             .then(dbUserData => {

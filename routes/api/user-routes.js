@@ -28,8 +28,8 @@ router
 
 // Set up GET one, PUT, and DELETE at /api/users/:id
 router
-    .route('/:id')
+    .route('/:userId/friends')
     
-    
+
 
 module.exports = router;

@@ -76,17 +76,15 @@ const thoughtController = {
             { $push: { reactions: body } },
             { new: true, runValidators: true }
         )
-            .then(dbUserData => {
-                if (!dbUserData) {
-                    res.status(404).json({ message: 'No User found with this id!' });
-                    return;
+            .then(dbUsertData => {
+                if (!dbUsertData) {
+                    return res.status(404).json({ message: 'User not found' });
                 }
-                res.json(dbUserData);
+                res.json(dbUsertData);
             })
-            .catch(err => res.json(err));
+            .catch(err => res.status(500).json(err));
     },
 
-    // remove reply
     removeReaction({ params }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
